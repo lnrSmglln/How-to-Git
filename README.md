@@ -64,6 +64,35 @@
 
 **git log** | история коммитов
 
+	--oneline | сокращенная
+
+### Жизнь файлов в git'е
+
+1. Файл только что создали. Git про него ещё ничего не знает. Состояние: untracked.
+2. Файл добавили в staging area с помощью git add. Состояние: staged (+ tracked). 
+	- Возможно, изменили файл ещё раз. Состояния: staged, modified (+ tracked). Обратите внимание: staged и modified у одного файла, но у разных его версий.
+	- Ещё раз выполнили git add. Состояние: staged (+ tracked).
+3. Сделали коммит с помощью git commit. Состояние: tracked.
+4. Изменили файл. Состояние: modified (+ tracked).
+5. Снова добавили в staging area с помощью git add. Состояния: staged (+ tracked).
+6. Сделали коммит. Состояния: tracked.
+7. Повторили пункты 4−7 много-много раз.
+
+```mermaid
+	graph TD;
+		A[untracked] -- git add --> B[staged + tracked];
+		C[modified] -- git add --> B[staged + tracked];
+		B[staged + tracked] -- git commit --> D[tracked];
+		D[tracked] -- изменения --> C[modified];
+		B[staged + tracked] -- изменения --> C[modified];
+```
+
+### Оформление сообщений коммитов
+
+**feat**: какой новый функционал
+**fix**(раздел кода): исправление каких ошибок
+
+
 ## Работа с GitHub
 
 1. Генерация SSH ключа (приватный и публичный)
